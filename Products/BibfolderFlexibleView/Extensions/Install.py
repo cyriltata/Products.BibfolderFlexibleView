@@ -1,6 +1,5 @@
 from cStringIO import StringIO
 
-from Products.CMFCore.TypesTool import ContentFactoryMetadata
 from Products.CMFCore.DirectoryView import addDirectoryViews
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.Expression import Expression
