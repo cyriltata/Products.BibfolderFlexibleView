@@ -89,7 +89,7 @@
             </metal:block>
         </select>
         <input type="hidden" name="keyword" tal:attributes="value keyword" />
-        <input type="submit" value="Show" i18n:attributes="value label_show" />
+        <input type="submit" value="Show" i18n:attributes="value label_show" class="context" />
     </form>
     
     <p />
