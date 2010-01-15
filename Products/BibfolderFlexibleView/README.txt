@@ -1,4 +1,4 @@
-BibfolderFlexibleView 0.32
+BibfolderFlexibleView
 
 Beschreibung des Produkts
   
@@ -7,8 +7,8 @@ Beschreibung des Produkts
   Webseite, sich nur Publikationen eines bestimmten Typs oder eines bestimmten
   Autors anzeigen zu lassen und ermöglicht es dem Betreiber der Seite, das Er-
   scheinungsbild der Liste und den Stil der Bibliographieeinträge (welche Felder
-  sollen in welcher Reihenfolge erscheinen) sehr frei anzupassen, ohne dass da-
-  für Templates von Hand geändert werden müssten.
+  sollen in welcher Reihenfolge erscheinen) sehr frei anzupassen, ohne dass dafü
+  Templates von Hand geändert werden müssten.
   
   Das Produkt ermöglicht es zudem, andere Plone-Objekte (Links, PDFs, ...) mit 
   möglichst geringem Aufwand mit Bibliographieeinträgen zu verknüpfen.
@@ -96,4 +96,6 @@ TODO - was ich noch plane oder fuer sinnvoll halte
   * ? validatoren und aehnliches schickes zueg fuer die konfig-seiten? (niedrige
     prioritaet!)
 
+Original author
 
+  Felix Droste, HU Berlin
