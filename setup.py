@@ -24,7 +24,6 @@ setup(name='Products.BibfolderFlexibleView',
         ],
       keywords=(
           'web application server zope zope2 cmf plone bibliography'),
-      author='Felix Droste',
       maintainer='Andreas Jung',
       maintainer_email='info@zopyx.com',
       url='http://plone.org/products/BibfolderFlexibleView',

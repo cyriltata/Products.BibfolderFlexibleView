@@ -15,7 +15,7 @@ Beschreibung des Produkts
 
 Benoetigt:
 
-  * CMFBibliographyAT 0.9
+  * CMFBibliographyAT 1.0
   
 Installation
 
