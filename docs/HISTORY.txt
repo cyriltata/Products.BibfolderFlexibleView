@@ -1,1 +1,4 @@
-FIX: default link_ico.gif -> link_icon.gif
+0.3.4
+-----
+
+* initial release

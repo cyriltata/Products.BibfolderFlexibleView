@@ -55,12 +55,12 @@ XXX auf aktuellen stand bringen!
 TODO - was ich noch plane oder fuer sinnvoll halte
 
   * Uebersetzung von
-	
-	*  diesem Dokument
-	
-	*  allen Texten im Produkt
-	
-	*  Quellcodekommentaren
+
+  *  diesem Dokument
+
+  *  allen Texten im Produkt
+
+  *  Quellcodekommentaren
     
     ins Englische (im Hinblick darauf, dass das im Idealfall auch der
     (HU-externen) Community zugaenglich sein sollte
@@ -95,4 +95,5 @@ TODO - was ich noch plane oder fuer sinnvoll halte
   
   * ? validatoren und aehnliches schickes zueg fuer die konfig-seiten? (niedrige
     prioritaet!)
+
 
