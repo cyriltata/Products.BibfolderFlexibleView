@@ -16,6 +16,7 @@ Beschreibung des Produkts
 Benoetigt:
 
   * CMFBibliographyAT 1.0
+  * Plone 3.X
   
 Installation
 
