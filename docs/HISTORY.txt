@@ -1,3 +1,8 @@
+0.3.7 (2010/01/18)
+------------------
+
+* restored full encoding functionality of the export form
+
 0.3.6
 -----
 
