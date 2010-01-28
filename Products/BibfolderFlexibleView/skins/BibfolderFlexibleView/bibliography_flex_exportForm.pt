@@ -59,13 +59,12 @@
           <tal:formats repeat="format here/portal_bibliography/getExportFormats">
             <div>
             <input class="noborder" type="radio" name="format"
-		   onchange=""
                    tal:define="value python:format[1];
 			                   renderer python: bib_tool.getRenderer(format='%s' % format[0])"
                    tal:attributes="tabindex tabindex/next;
                                    value value;
                                    id string:bibexport_${value};
-                                   checked python:test(False, 'checked', None)"
+                                   checked python:test(format[1] == 'bib', 'checked', None)"
                    id="bibexport_structuredtext" checked="checked" />
             <label for="bibexport_structuredtext"
                    tal:define="value python:format[1]"
@@ -91,7 +90,6 @@
 		       value="1"
 		       name="eol_style:int"
 		       id="eol_style_on"
-		       checked="checked"
 		       tal:attributes="tabindex tabindex/next;"/>
 		<label for="eol_style_on" i18n:translate="label_eol_style_msdos">Use MS-DOS / Windows end-of-line style (CR+LF)</label>		    
 		
@@ -102,6 +100,7 @@
 		       name="eol_style:int"
 		       id="eol_style_off"
 		       value="0"
+		       checked="checked"
 		       tal:attributes="tabindex tabindex/next;" />
 		<label for="eol_style_off" i18n:translate="label_eol_style_unix">Use UniX end-of-line style (LF only)</label>		    
 
