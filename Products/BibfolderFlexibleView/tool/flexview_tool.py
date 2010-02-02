@@ -19,9 +19,9 @@ from safe_eval import *
 class FlexviewTool(UniqueObject, Folder):
     id = 'portal_bibliography_flexible_view'
     meta_type = 'Bibliography Flexible View Tool'
-
+    
     __allow_access_to_unprotected_subobjects__ = 1
-
+    
     # XXX bessere defaults finden!
     #pubentry_mask = 'deprecated'
     #pubentry_mask_unparsed = 'deprecated'
@@ -155,7 +155,7 @@ class FlexviewTool(UniqueObject, Folder):
              'type':'int',
              'mode':'w' 
             })
-
+    
     # manche keys sind doppelt belegt, welcher benutzt wird, haengt von 'allowed_fields' ab
     # fehlt: citationLabel
     keymap = {#'A': ['authors'],
@@ -234,8 +234,8 @@ class FlexviewTool(UniqueObject, Folder):
                     'DOI',
                     'publisher',
                     'isbn']
-                                                   
-                                                                     
+    
+    
     pubentry_ao_allowed = ['id', 'title', 'ico', 'url', 'priv', 'desc']
     
     label_alias = {'Source': '',
@@ -249,7 +249,7 @@ class FlexviewTool(UniqueObject, Folder):
                    #'type': 'publication_type',
                    'publication_url': 'url'}   
     
-#    def __init__(self):
+    #    def __init__(self):
     
     def __post_init__(self):    
         bibtool = getToolByName(self, 'portal_bibliography')
@@ -260,14 +260,14 @@ class FlexviewTool(UniqueObject, Folder):
         self.process_masks(self)
         for c in CATEGORIES:
             self.add_category(self, category=c, reftypes=CATEGORIES[c])
-
-    # wenn es alle felder die wir brauchen auch als catalog-metadata gibt, sparen wir viel zeit
-    # gebe alle felder aus pubentry_allowed zurueck, die auch in brains vorkommen - plus ass_obs
+            
+            # wenn es alle felder die wir brauchen auch als catalog-metadata gibt, sparen wir viel zeit
+            # gebe alle felder aus pubentry_allowed zurueck, die auch in brains vorkommen - plus ass_obs
     def get_catalog_compatible_fields(self):
         catalog = getToolByName(self, 'portal_catalog')
         return [x for x in self.pubentry_allowed if x in catalog.schema()] + ['ass_obs']
-       
-    
+        
+        
     def process_masks(self, prop_src, REQUEST=None):
         bibtool = getToolByName(self, 'portal_bibliography')
         reftypes = bibtool.getReferenceTypes()
@@ -283,8 +283,8 @@ class FlexviewTool(UniqueObject, Folder):
         for i in range(prop_src.num_unparsed_masks):
             #if REQUEST and REQUEST.has_key('unparsed_mask_%i' % i): indices += [i]
             if prop_src.hasProperty('unparsed_mask_%i' % i): indices += [i]
-    
-        #inmasks = [{'mask': REQUEST['unparsed_mask_%i' % i], 'reftypes': REQUEST['unparsed_mask_%i_reftypes' % i]}
+            
+            #inmasks = [{'mask': REQUEST['unparsed_mask_%i' % i], 'reftypes': REQUEST['unparsed_mask_%i_reftypes' % i]}
         inmasks = [{'mask': prop_src['unparsed_mask_%i' % i], 'reftypes': prop_src['unparsed_mask_%i_reftypes' % i]}
                         for i in indices]
         
@@ -295,18 +295,18 @@ class FlexviewTool(UniqueObject, Folder):
                 pm = self.parse_mask(m['mask'], self.pubentry_allowed)
                 prop_src.manage_changeProperties({rtype + '_mask': pm['mask']})
                 prop_src.manage_changeProperties({rtype + '_fields': pm['fields']})
-    
+                
     def add_ref_type_mask_properties(self, prop_src, reftypes):
         # wird auch nach jedem config aufgerufen, damit wir evtl neuregistrierte reference-types mitnehmen
         pmap =  prop_src.propertyMap()
         for rtype in reftypes:
             if not rtype + '_mask' in [p['id'] for p in pmap]:
-                 prop_src.manage_addProperty(type="string", id=rtype+'_mask', value='')
-                 prop_src.manage_addProperty(type="lines", id=rtype+'_fields', value='')
-    
+                prop_src.manage_addProperty(type="string", id=rtype+'_mask', value='')
+                prop_src.manage_addProperty(type="lines", id=rtype+'_fields', value='')
+                
     def parse_mask(self, inmask, allowed_fields): 
         outfields = []
-
+        
         i = 0
         replaceme = ['%' + x for x in self.keymap.keys()]
         while i < len(inmask):
@@ -319,8 +319,8 @@ class FlexviewTool(UniqueObject, Folder):
                             raise ValueError, "'%%%s'/'$%s' not allowed here" % (k, k)
                         for f in self.keymap[k]:
                             if f in allowed_fields:
-                               field = f
-                               break
+                                field = f
+                                break
                         if inmask[i] == '%':
                             outfields.append(field)
                             i += len(k)
@@ -347,9 +347,9 @@ class FlexviewTool(UniqueObject, Folder):
         outmask = inmask    
         for k in replaceme:
             outmask = outmask.replace(k, '%s')
-
+            
         return {'mask': outmask, 'fields': outfields}
-    
+        
     def get_unparsed_masks(self, prop_src):
         l = []
         for i in range(prop_src.num_unparsed_masks):
@@ -357,9 +357,9 @@ class FlexviewTool(UniqueObject, Folder):
             if prop_src.hasProperty(k):
                 l += [{'id': k, 'mask': prop_src[k], 'reftypes': prop_src[k + '_reftypes']}]
         return l
-    
-    
-    
+        
+        
+        
     def get_categories(self, prop_src):
         l = []
         for i in range(prop_src.highest_category_idx):
@@ -367,13 +367,13 @@ class FlexviewTool(UniqueObject, Folder):
             if prop_src.hasProperty(k):
                 l += [{'id': k, 'category': prop_src[k], 'reftypes': prop_src[k + '_reftypes']}]
         return l
-    
+        
     def query_from_string(self, s):
         if isinstance(s, StringType):
             return safe_eval(s)
         else: return s
-    
-    # merge our query 'query' with topic query 'q'
+        
+        # merge our query 'query' with topic query 'q'
     def merge_queries(self, query, q):
         for k, v in q.items():
             if query.has_key(k):
@@ -402,7 +402,7 @@ class FlexviewTool(UniqueObject, Folder):
             else:
                 query[k] = v
         return query
-    
+        
     def is_get_object_authorized(self, brain):
         try:
             brain.getObject()
@@ -429,15 +429,15 @@ class FlexviewTool(UniqueObject, Folder):
                         l.append(d)
                         break     
         return l    
-    
-    # erwartet in inlist die brains aus dem catalog, *nicht* die objekte selbst  
-    def get_formatted_list(self, prop_src, inlist, ass_obs = []):
         
+        # erwartet in inlist die brains aus dem catalog, *nicht* die objekte selbst  
+    def get_formatted_list(self, prop_src, inlist, ass_obs = []):
+    
         def _uc(s):
             if type(s) is not UnicodeType:
                 s = unicode(s, 'utf-8', 'replace')    
             return s
-        
+            
         def _get(obj, attr):
             if isinstance(obj, DictType):
                 a = obj[attr]
@@ -446,7 +446,7 @@ class FlexviewTool(UniqueObject, Folder):
                 if hasattr(a, '__call__'): 
                     a = a()
             return _uc(a)
-                          
+            
         def _fill_mask(mask, obj, fields, ao_str = ''):
             v = ()
             for f in fields:
@@ -459,7 +459,7 @@ class FlexviewTool(UniqueObject, Folder):
                     else: 
                         v += (_get(obj,f),)
             return mask % v
-                          
+            
         outlist = []
         
         bibtool = getToolByName(self, 'portal_bibliography')
@@ -477,7 +477,7 @@ class FlexviewTool(UniqueObject, Folder):
                         pass
                 inlist = il
                 break
-
+                
         for r in inlist:        
             #v = ()  
             s = u''
@@ -503,7 +503,7 @@ class FlexviewTool(UniqueObject, Folder):
                                   'priv': ''}
                     if not ass_obs.has_key(r.id): ass_obs[r.id] = [pdf_ao]
                     else: ass_obs[r.id].insert(0, pdf_ao)
-                # url as ao?
+                    # url as ao?
                 if prop_src.publication_url_as_ao and (r.publication_url != ''):
                     url_ao = {'id': r.id, 
                               'title': prop_src.publication_url_ao_title, 
@@ -512,7 +512,7 @@ class FlexviewTool(UniqueObject, Folder):
                               'priv': ''}
                     if not ass_obs.has_key(r.id): ass_obs[r.id] = [url_ao]
                     else: ass_obs[r.id].insert(0, url_ao)
-                                
+                    
                 if ass_obs.has_key(r.id):
                     s = _uc(prop_src['pubentry_ao_lead_in'])
                     
@@ -530,40 +530,40 @@ class FlexviewTool(UniqueObject, Folder):
                                             ao,
                                             prop_src.pubentry_ao_fields)
                     s += _uc(prop_src['pubentry_ao_lead_out'])    
-            
-            #for f in prop_src[r.meta_type + '_fields']:
-            #    if f.startswith('$'):
-            #        cf, va = f.lstrip('$').split('$')
-            #        v += (_get(r, cf) and _uc(va),)
-            #    else:
-            #        if f == 'ass_obs':
-            #            v += (s,)
-            #        else: 
-            #            v += (_get(r,f),)
                     
-            #outlist += [_uc(prop_src[r.meta_type + '_mask']) % v]
+                    #for f in prop_src[r.meta_type + '_fields']:
+                    #    if f.startswith('$'):
+                    #        cf, va = f.lstrip('$').split('$')
+                    #        v += (_get(r, cf) and _uc(va),)
+                    #    else:
+                    #        if f == 'ass_obs':
+                    #            v += (s,)
+                    #        else: 
+                    #            v += (_get(r,f),)
+                    
+                    #outlist += [_uc(prop_src[r.meta_type + '_mask']) % v]
             outlist += [_fill_mask(_uc(prop_src[r.meta_type + '_mask']),
                                    r,
                                    prop_src[r.meta_type + '_fields'],
                                    s)] 
         return outlist
-    
-    # XXX not a good way of returning this and should become obsolete... now?        
+        
+        # XXX not a good way of returning this and should become obsolete... now?        
     def get_types(self, prop_src):        
         pub_types = {}
         for c in self.get_categories(prop_src):
             pub_types[c['category']] = c['reftypes']   
         return pub_types;
-
+        
     def group_by_years(self, reflist):
         # nimmt eine liste von References (oder Brains!), gibt ein dictionary zurueck, in dem der key das jahr ist 
         # und zu jedem key die liste der references in diesem jahr gehoert
         res = {}
         for r in reflist:        
-        	year = r.publication_year
-        	if not res.has_key(year):
-        		res[year] = [r]
-        	else: res[year].append(r)
+            year = r.publication_year
+            if not res.has_key(year):
+                res[year] = [r]
+            else: res[year].append(r)
         return res
         
     def copy_tool_properties(self, prop_src, force_it=False):
@@ -572,20 +572,20 @@ class FlexviewTool(UniqueObject, Folder):
                 if not prop_src.hasProperty(p['id']) and p['id'] != 'title':
                     prop_src.manage_addProperty(type=p['type'], id=p['id'], value=self[p['id']])
                     prop_src.manage_changeProperties({p['id']: self[p['id']]})    
-                        
+                    
     def count_seq_prop(self, prop_src, id):
         n = 0
         for i in range(prop_src.num_unparsed_masks):
             if prop_src.hasProperty(id % i): n += 1
         return n    
         
-    # TODO fuer "num_unparsed_masks" waere highest_mask_idx oder so passender    
+        # TODO fuer "num_unparsed_masks" waere highest_mask_idx oder so passender    
     def add_mask(self, prop_src, mask='', reftypes=[]):
         n = prop_src.num_unparsed_masks
         prop_src.manage_addProperty(type='string', id="unparsed_mask_%i" % n, value=mask)
         prop_src.manage_addProperty(type='lines', id="unparsed_mask_%i_reftypes" % n, value=reftypes)
         prop_src.manage_changeProperties({'num_unparsed_masks': n + 1})
-    
+        
     def delete_mask(self, prop_src, ids):
         n = self.count_seq_prop(prop_src, 'unparsed_mask_%i')
         if (n - len(ids)) < 1:
