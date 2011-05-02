@@ -15,10 +15,8 @@
 
   <div metal:fill-slot="main"
        tal:define="global props python:container.portal_properties;
-                   Iterator python:modules['Products.CMFPlone'].IndexIterator;
 		   bib_tool here/portal_bibliography;
-		   bibliography_export_script string:bibliography_flex_export;
-                   tabindex python:Iterator();">
+		   bibliography_export_script string:bibliography_flex_export">
 
         <div metal:use-macro="here/document_actions/macros/document_actions">
             Document actions (print, sendto etc)
@@ -61,8 +59,7 @@
             <input class="noborder" type="radio" name="format"
                    tal:define="value python:format[1];
 			                   renderer python: bib_tool.getRenderer(format='%s' % format[0])"
-                   tal:attributes="tabindex tabindex/next;
-                                   value value;
+                   tal:attributes="value value;
                                    id string:bibexport_${value};
                                    checked python:test(format[1] == 'bib', 'checked', None)"
                    id="bibexport_structuredtext" checked="checked" />
@@ -89,8 +86,7 @@
 		       type="radio" 
 		       value="1"
 		       name="eol_style:int"
-		       id="eol_style_on"
-		       tal:attributes="tabindex tabindex/next;"/>
+		       id="eol_style_on"/>
 		<label for="eol_style_on" i18n:translate="label_eol_style_msdos">Use MS-DOS / Windows end-of-line style (CR+LF)</label>		    
 		
 		<br />
@@ -100,8 +96,7 @@
 		       name="eol_style:int"
 		       id="eol_style_off"
 		       value="0"
-		       checked="checked"
-		       tal:attributes="tabindex tabindex/next;" />
+		       checked="checked"/>
 		<label for="eol_style_off" i18n:translate="label_eol_style_unix">Use UniX end-of-line style (LF only)</label>		    
 
     	  </div>
@@ -110,12 +105,12 @@
 	
         <div class="formControls">
           <input class="context"
-                 tabindex=""
+                 
                  type="submit"
                  name="submit"
                  value="Export"
                  i18n:attributes="value"
-                 tal:attributes="tabindex tabindex/next;" />
+                  />
         </div>
 
       </fieldset>
