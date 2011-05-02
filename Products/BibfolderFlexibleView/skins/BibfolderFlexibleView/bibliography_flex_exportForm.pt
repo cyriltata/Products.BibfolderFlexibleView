@@ -18,10 +18,6 @@
 		   bib_tool here/portal_bibliography;
 		   bibliography_export_script string:bibliography_flex_export">
 
-        <div metal:use-macro="here/document_actions/macros/document_actions">
-            Document actions (print, sendto etc)
-        </div>
-
     <h1><span tal:content="python: '%s - ' %here.Title()" tal:condition="here/isPrincipiaFolderish" /><span i18n:translate="heading_pubref_export">Export Bibliographical Entries</span></h1>
     
     <p class="documentDescription" tal:content="here/Description" tal:condition="here/isPrincipiaFolderish"/>

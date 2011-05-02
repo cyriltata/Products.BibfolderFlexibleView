@@ -16,9 +16,6 @@
                    prop_dest python: bibtool">
                    <!-- XXX prop_dest bibtool is natuerlich unsinn, aber wichtig is nur, dasses nich bfvtool ist und context/id macht - warum auch immer - probleme --> 
 
-        <div metal:use-macro="here/document_actions/macros/document_actions">
-            Document actions (print, sendto etc)
-        </div>
 
     <h1 i18n:translate="heading_bibfolder_settings" class="documentFirstHeading">
       Flexible View Settings
