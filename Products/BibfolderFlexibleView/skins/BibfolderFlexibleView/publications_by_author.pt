@@ -72,7 +72,7 @@
                     
                     ass_obs python: context.bibflexview_get_ass_obs(prop_src);                    
 
-                    exportlink python: here_url + '/bibliography_flex_exportForm'">
+                    exportlink python: context.absolute_url() + '/bibliography_flex_exportForm'">
 
     <form tal:condition="python: not context.REQUEST.has_key('noselection')" name="authorsel" action="" method="get">
         <span i18n:translate="text_show">Show</span>

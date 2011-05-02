@@ -13,12 +13,6 @@
    <tal:main-macro metal:define-macro="main">
 
 
-   <div metal:use-macro="here/document_actions/macros/document_actions">
-
-                Document actions (print, sendto etc)
-
-            </div>
-
             
 
             <h1 tal:content="here/title_or_id" class="documentFirstHeading">
@@ -44,7 +38,7 @@
    <div id="content-events" class="contentWithLeftPadding" 
         tal:define="path python: '/'.join(context.getPhysicalPath());">
 
-<p tal:define="exportlink python: here_url + '/bibliography_exportForm'">
+<p tal:define="exportlink python: context.absolute_url() + '/bibliography_exportForm'">
 
 
 
