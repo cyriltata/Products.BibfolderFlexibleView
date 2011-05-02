@@ -62,7 +62,6 @@
                             type="checkbox"
                             name="unparsed_mask_checks:list"
                             value="unparsed_mask_0"
-                            tabindex=""
                             tal:attributes="value m/id" />
                         </td>
                     <td>
@@ -83,8 +82,7 @@
                             <textarea cols="50"
                                       rows="6"
                                       name="unparsed_mask_0:string"
-                                      tabindex=""
-                                      tal:attributes="tabindex tabindex/next; name python: m['id'] + ':string'"
+                                      tal:attributes="name python: m['id'] + ':string'"
                                       tal:content="python: m['mask']">Maske</textarea>
                         </div>
                     </td>
@@ -93,19 +91,15 @@
             </table>
             <div class="formControls">
                 <input class="context"
-                       tabindex=""
                        type="submit"
                        name="form.button.DeleteMask"
                        value="Delete selected masks"
-                       tal:attributes="tabindex tabindex/next;"
                        i18n:attributes="value label_delete_mask"
                        />
                 <input class="context"
-                       tabindex=""
                        type="submit"
                        name="form.button.AddMask"
                        value="Add mask"
-                       tal:attributes="tabindex tabindex/next;"
                        i18n:attributes="value label_add_mask"
                        />
             </div>
@@ -119,7 +113,6 @@
                        type="checkbox"
                        name="pubentry_use_ao:boolean"
                        value="1"
-                       tabindex=""
                        tal:attributes="checked prop_src/pubentry_use_ao;" />
                     <input type="hidden" name="pubentry_use_ao:default" value="" />
 
@@ -167,7 +160,6 @@
                        type="checkbox"
                        name="ao_show_priv:boolean"
                        value="1"
-                       tabindex=""
                        tal:attributes="checked prop_src/ao_show_priv;" />
                     <input type="hidden" name="ao_show_priv:default" value="" />
 
@@ -181,7 +173,6 @@
                        type="checkbox"
                        name="publication_url_as_ao:boolean"
                        value="1"
-                       tabindex=""
                        tal:attributes="checked prop_src/publication_url_as_ao;" />
                     <input type="hidden" name="publication_url_as_ao:default" value="" />
 	                <span i18n:translate="label_ao_as_url">Display URL of the publication as associated object?</span>
@@ -206,7 +197,6 @@
                        type="checkbox"
                        name="pdf_file_as_ao:boolean"
                        value="1"
-                       tabindex=""
                        tal:attributes="checked prop_src/pdf_file_as_ao;" />
                     <input type="hidden" name="pdf_file_as_ao:default" value="" />
 	                <span i18n:translate="label_pdf_as_ao">Display PDF-field as associated object?</span>
@@ -232,7 +222,6 @@
                        type="checkbox"
                        name="use_ao_ip_check:boolean"
                        value="1"
-                       tabindex=""
                        tal:attributes="checked prop_src/use_ao_ip_check;" />
                     <input type="hidden" name="use_ao_ip_check:default" value="" />
 	                <span i18n:translate="label_ao_ip_restrict">Show some associated objects only to a certain IP range?</span>
@@ -263,7 +252,6 @@
                        type="checkbox"
                        name="authors_from_references:boolean"
                        value="1"
-                       tabindex=""
                        tal:attributes="checked prop_src/authors_from_references;" />
                     <input type="hidden" name="authors_from_references:default" value="" />
 	                <span i18n:translate="label_authors_from_references">Authors from references?</span>
@@ -278,8 +266,6 @@
                 <textarea cols="15"
                           rows="10"
                           name="authors:lines"
-                          tabindex=""
-                          tal:attributes="tabindex tabindex/next"
                           tal:content="python:'\n'.join(prop_src.authors)">Nemo</textarea>
             </div>
             </div>
@@ -296,7 +282,7 @@
                             name="category_checks:list"
                             value="category_0"
                             tal:attributes="value c/id"
-                            tabindex="" />
+                            />
                     </td>
                     <td>
                         <input type='text' name='category_0:string' value='' 
@@ -322,42 +308,34 @@
 	        <input type="hidden" name="category_checks:default" value="" />
 	        <div class="formControls">
                 <input class="context"
-                       tabindex=""
                        type="submit"
                        name="form.button.DeleteCategory"
                        value="Delete selected categories"
                        i18n:attributes="value label_delete_category"
-                       tal:attributes="tabindex tabindex/next;"
                        />
                 <input class="context"
-                       tabindex=""
                        type="submit"
                        name="form.button.AddCategory"
                        value="Add category"
                        i18n:attributes="value label_add_category"
-                       tal:attributes="tabindex tabindex/next;"
                        />
             </div>
         </fieldset>
         
         <div class="formControls">
                 <input class="context"
-                       tabindex=""
                        type="submit"
                        name="form.button.Save"
                        value="Save"
                        i18n:attributes="value label_save"
 		               i18n:domain="plone"
-                       tal:attributes="tabindex tabindex/next;"
                        />
                 <input class="standalone"
-                       tabindex=""
                        type="submit"
                        name="form.button.Cancel"
                        value="Cancel"
                        i18n:attributes="value label_cancel"
 		               i18n:domain="plone"
-                       tal:attributes="tabindex tabindex/next;"
                        />
             </div>
 
