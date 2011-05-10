@@ -13,4 +13,3 @@ def initialize(context):
         tools=(flexview_tool.FlexviewTool,),
         ## product_name=PROJECTNAME,
         ).initialize(context)
-
