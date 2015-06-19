@@ -274,7 +274,7 @@ class FlexviewTool(UniqueObject, Folder):
         self.add_ref_type_mask_properties(prop_src, reftypes)
 
         #aopm = self.parse_mask(REQUEST['pubentry_ao_mask_unparsed'], self.pubentry_ao_allowed)
-        aopm = self.parse_mask(prop_src['pubentry_ao_mask_unparsed'], self.pubentry_ao_allowed)
+        aopm = self.parse_mask(prop_src.getProperty('pubentry_ao_mask_unparsed'), self.pubentry_ao_allowed)
         prop_src.manage_changeProperties({'pubentry_ao_mask': aopm['mask']})
         prop_src.manage_changeProperties({'pubentry_ao_fields': aopm['fields']})
 
@@ -285,7 +285,7 @@ class FlexviewTool(UniqueObject, Folder):
             if prop_src.hasProperty('unparsed_mask_%i' % i): indices += [i]
 
             #inmasks = [{'mask': REQUEST['unparsed_mask_%i' % i], 'reftypes': REQUEST['unparsed_mask_%i_reftypes' % i]}
-        inmasks = [{'mask': prop_src['unparsed_mask_%i' % i], 'reftypes': prop_src['unparsed_mask_%i_reftypes' % i]}
+        inmasks = [{'mask': prop_src.getProperty('unparsed_mask_%i' % i), 'reftypes': prop_src.getProperty('unparsed_mask_%i_reftypes' % i)}
                         for i in indices]
 
         # wir drehen die reihenfolge um, damit die *ersten* eintraege, die einen reftype enthalten, sich durchsetzen
@@ -355,17 +355,15 @@ class FlexviewTool(UniqueObject, Folder):
         for i in range(prop_src.num_unparsed_masks):
             k = "unparsed_mask_%i" % i
             if prop_src.hasProperty(k):
-                l += [{'id': k, 'mask': prop_src[k], 'reftypes': prop_src[k + '_reftypes']}]
+                l += [{'id': k, 'mask': prop_src.getProperty(k), 'reftypes': prop_src.getProperty(k + '_reftypes')}]
         return l
-
-
 
     def get_categories(self, prop_src):
         l = []
         for i in range(prop_src.highest_category_idx):
             k = "category_%i" % i
             if prop_src.hasProperty(k):
-                l += [{'id': k, 'category': prop_src[k], 'reftypes': prop_src[k + '_reftypes']}]
+                l += [{'id': k, 'category': prop_src.getProperty(k), 'reftypes': prop_src.getProperty(k + '_reftypes')}]
         return l
 
     def query_from_string(self, s):
@@ -442,9 +440,18 @@ class FlexviewTool(UniqueObject, Folder):
             if isinstance(obj, DictType):
                 a = obj[attr]
             else:
-                a = getattr(obj, attr)
+
+                try:
+                  a = getattr(obj, attr)
+                except AttributeError,theException:
+                  print "flexview_tool.py: (WARNING) AttributeError: %s caught" % theException
+                  print "flexview_tool.py: (WARNING) obj=%s, attr=%s" % (obj,attr)
+                  print 'flexview_tool.py: (WARNING) returning ""'
+                  return _uc("")
+
                 if hasattr(a, '__call__'):
                     a = a()
+
             return _uc(a)
 
         def _fill_mask(mask, obj, fields, ao_str = ''):
@@ -467,7 +474,7 @@ class FlexviewTool(UniqueObject, Folder):
         # if not all fields are catalog compatible or pdf_file_as_ao is set,
         # fall back to the real objects
         for rt in reftypes:
-            if not set(prop_src[rt + '_fields']).issubset(set(self.get_catalog_compatible_fields())) or prop_src.pdf_file_as_ao:
+            if not set(prop_src.getProperty(rt + '_fields')).issubset(set(self.get_catalog_compatible_fields())) or prop_src.pdf_file_as_ao:
                 # catch Unauthorized exception in order to ignore 'private' references
                 il = []
                 for x in inlist:
@@ -514,7 +521,7 @@ class FlexviewTool(UniqueObject, Folder):
                     else: ass_obs[r.id].insert(0, url_ao)
 
                 if ass_obs.has_key(r.id):
-                    s = _uc(prop_src['pubentry_ao_lead_in'])
+                    s = _uc(prop_src.getProperty('pubentry_ao_lead_in'))
 
                     for ao in ass_obs[r.id]:
                         #v_ao = ()
@@ -525,13 +532,13 @@ class FlexviewTool(UniqueObject, Folder):
                         #        v_ao += (_uc(ao[cf]) and _uc(va),)
                         #    else:
                         #        v_ao += (_uc(ao[f]),)
-                        #s += _uc(prop_src['pubentry_ao_mask']) % v_ao
-                        s += _fill_mask(_uc(prop_src['pubentry_ao_mask']),
+                        #s += _uc(prop_src.getProperty('pubentry_ao_mask')) % v_ao
+                        s += _fill_mask(_uc(prop_src.getProperty('pubentry_ao_mask')),
                                             ao,
                                             prop_src.pubentry_ao_fields)
-                    s += _uc(prop_src['pubentry_ao_lead_out'])
+                    s += _uc(prop_src.getProperty('pubentry_ao_lead_out'))
 
-                    #for f in prop_src[r.meta_type + '_fields']:
+                    #for f in prop_src.getProperty(r.meta_type + '_fields'):
                     #    if f.startswith('$'):
                     #        cf, va = f.lstrip('$').split('$')
                     #        v += (_get(r, cf) and _uc(va),)
@@ -541,10 +548,10 @@ class FlexviewTool(UniqueObject, Folder):
                     #        else:
                     #            v += (_get(r,f),)
 
-                    #outlist += [_uc(prop_src[r.meta_type + '_mask']) % v]
-            outlist += [_fill_mask(_uc(prop_src[r.meta_type + '_mask']),
+                    #outlist += [_uc(prop_src.getProperty(r.meta_type + '_mask')) % v]
+            outlist += [_fill_mask(_uc(prop_src.getProperty(r.meta_type + '_mask')),
                                    r,
-                                   prop_src[r.meta_type + '_fields'],
+                                   prop_src.getProperty(r.meta_type + '_fields'),
                                    s)]
         return outlist
 
@@ -570,10 +577,11 @@ class FlexviewTool(UniqueObject, Folder):
         if force_it or not prop_src.hasProperty('pubentry_ao_mask'):
             for p in self.propertyMap():
                 if not prop_src.hasProperty(p['id']) and p['id'] != 'title':
-                    prop_src.manage_addProperty(type=p['type'], id=p['id'], value=self[p['id']])
-                    prop_src.manage_changeProperties({p['id']: self[p['id']]})
+                    prop_src.manage_addProperty(type=p['type'], id=p['id'], value=self.getProperty(p['id'])) #value=self[p['id']])
+                    prop_src.manage_changeProperties({p['id']: self.getProperty(p['id'])}) #self[p['id']]})
 
     def count_seq_prop(self, prop_src, id):
+
         n = 0
         for i in range(prop_src.num_unparsed_masks):
             if prop_src.hasProperty(id % i): n += 1
@@ -599,7 +607,11 @@ class FlexviewTool(UniqueObject, Folder):
         prop_src.manage_changeProperties({'highest_category_idx': n + 1})
 
     def delete_category(self, prop_src, ids):
+
+        categories=self.get_categories(prop_src)
         n = self.count_seq_prop(prop_src, 'category_%i')
-        if (n - len(ids)) < 1:
+
+        #if (n - len(ids)) < 1:
+        if (len(categories) - n) < 1:
             raise ValueError, "you've got to keep at least one category"
         prop_src.manage_delProperties(ids + [x + '_reftypes' for x in ids])
