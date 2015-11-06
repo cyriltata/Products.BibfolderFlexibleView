@@ -41,17 +41,17 @@ for obj in objlist:
         key = obj.id
         for sufx in filesufxs:
             if key.endswith(sufx):
-                key = key.split('.',1)[0]
+                key = key.split('.', 1)[0]
                 break
         if obj.Title: title = obj.Title
         else: title = obj.id
 # hier sonderbehandlung von pdfs - wenn fuer die wie fuer alle anderen der Dateiname
 # angezeigt werden soll, die folgende zeile entfernen. sollte man vielleicht lang-
 # fristig eleganter/allgemeiner regeln
-        if title.endswith('pdf'): title = 'Download as pdf-file'
+    if title.endswith('pdf'): title = 'Download as pdf-file'
 
-        #od = {'id': obj.id, 'title': title, 'url': url, 'ico': obj.getIcon}
-        od = {'id': obj.id, 'title':  title, 'url': url, 'ico': obj.getIcon, 'priv': priv}
-        if res.has_key(key): res[key].append(od)
-        else: res[key] = [od]
+    #od = {'id': obj.id, 'title': title, 'url': url, 'ico': obj.getIcon}
+    od = {'id': obj.id, 'title':  title, 'url': url, 'ico': obj.getIcon, 'priv': priv}
+    if res.has_key(key): res[key].append(od)
+    else: res[key] = [od]
 return res

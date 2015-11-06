@@ -24,7 +24,7 @@ else:
         # wir sollten jetzt ne liste mit n*2 eintraegen haben. wenn nicht versuchen
         # wir erst gar nicht draus schlau zu werden
         if len(pauths) % 2 == 0:
-            for i in [x * 2 for x in range(len(pauths)/2)]:
+            for i in [x * 2 for x in range(len(pauths) / 2)]:
                 pau = pauths[i]
                 if pau not in authors: authors.append(pau)
 authors.sort()

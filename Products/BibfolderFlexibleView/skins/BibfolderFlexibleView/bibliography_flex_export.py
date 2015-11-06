@@ -8,7 +8,7 @@
 ##title=
 ##
 request = context.REQUEST
-RESPONSE =  request.RESPONSE
+RESPONSE = request.RESPONSE
 
 if not format: return None
 
@@ -35,7 +35,7 @@ else:
 RESPONSE.setHeader('Content-Type', 'application/octet-stream')
 RESPONSE.appendHeader('Cache-Control', 'no-cache')
 RESPONSE.setHeader('Content-Disposition',
-                   'attachment; filename=%s' %\
+                   'attachment; filename=%s' % \
                    response_filename)
 
 
