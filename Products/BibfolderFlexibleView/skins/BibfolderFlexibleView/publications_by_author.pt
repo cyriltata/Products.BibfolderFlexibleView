@@ -112,16 +112,18 @@
         <p />
         
         
-        <metal:block tal:repeat="year rkeys">
-            <h3><a tal:attributes="id year; name year" tal:content="year">1905</a></h3>          
-            
-            <span tal:replace="structure prop_src/pubentry_lead_in" />
-	        <metal:block tal:define="dummy python: results[year].sort(lambda x, y : cmp (x.Title, y.Title))" 
-	                     tal:repeat="ref python: bfvtool.get_formatted_list(prop_src, results[year],ass_obs)">
-	    	    <span tal:replace="structure ref" />
-            </metal:block>   
-            <span tal:replace="structure prop_src/pubentry_lead_out" />
-        </metal:block>  
+        <div class="bibfolderflexview-results">
+            <metal:block tal:repeat="year rkeys">
+                <h3><a tal:attributes="id year; name year" tal:content="year">1905</a></h3>          
+
+                <span tal:replace="structure prop_src/pubentry_lead_in" />
+                    <metal:block tal:define="dummy python: results[year].sort(lambda x, y : cmp (x.Title, y.Title))" 
+                                 tal:repeat="ref python: bfvtool.get_formatted_list(prop_src, results[year],ass_obs)">
+                        <span tal:replace="structure ref" />
+                </metal:block>   
+                <span tal:replace="structure prop_src/pubentry_lead_out" />
+            </metal:block>  
+        </div>
     </form> 
 </div>	   
 </metal:block>
