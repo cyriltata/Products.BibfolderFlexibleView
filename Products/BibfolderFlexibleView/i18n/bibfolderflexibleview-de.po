@@ -291,3 +291,13 @@ msgstr "von Autor:"
 msgid "text_show"
 msgstr "Zeige"
 
+#. Default: "all"
+#: ../skins/BibfolderFlexibleView/publications_by_author.pt
+msgid "text_years_all"
+msgstr "alle"
+
+#. Default: "by year:"
+#: ../skins/BibfolderFlexibleView/publications_by_author.pt
+msgid "text_by_year"
+msgstr "von Jahre"
+

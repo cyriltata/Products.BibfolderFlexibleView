@@ -287,3 +287,13 @@ msgstr ""
 msgid "text_show"
 msgstr ""
 
+#. Default: "all"
+#: ../skins/BibfolderFlexibleView/publications_by_author.pt
+msgid "text_years_all"
+msgstr ""
+
+#. Default: "by year:"
+#: ../skins/BibfolderFlexibleView/publications_by_author.pt
+msgid "text_by_year"
+msgstr ""
+
